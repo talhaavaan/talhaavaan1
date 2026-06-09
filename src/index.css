@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+@import "tailwindcss";
+
+/* ── CSS Custom Properties ─────────────────────────────────────────────────── */
+:root {
+  --bg: 0 0% 4%;
+  --surface: 0 0% 8%;
+  --text: 0 0% 96%;
+  --muted: 0 0% 53%;
+  --stroke: 0 0% 12%;
+  --accent-from: #89AACC;
+  --accent-to: #4E85BF;
+  --accent-glow: rgba(137,170,204,0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: hsl(var(--bg));
+  color: hsl(var(--text));
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── Accent gradient utility ───────────────────────────────────────────────── */
+.accent-gradient {
+  background: linear-gradient(90deg, var(--accent-from) 0%, var(--accent-to) 100%);
+}
+.accent-gradient-border {
+  position: relative;
+}
+.accent-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  z-index: -1;
+}
+
+/* ── Custom cursor ─────────────────────────────────────────────────────────── */
+#cursor {
+  position: fixed; width: 10px; height: 10px;
+  background: var(--accent-from); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform .15s ease, width .3s, height .3s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1px solid rgba(137,170,204,0.45); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform .4s ease, width .3s, height .3s;
+}
+a, button, input, select, textarea, label { cursor: none; }
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: hsl(var(--bg)); }
+::-webkit-scrollbar-thumb { background: var(--accent-from); border-radius: 2px; }
+
+/* ── Keyframes ─────────────────────────────────────────────────────────────── */
+@keyframes scroll-down {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+.animate-scroll-down { animation: scroll-down 1.5s ease-in-out infinite; }
+
+@keyframes role-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-role-fade-in { animation: role-fade-in 0.4s ease-out forwards; }
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.animate-blink { animation: blink 1s step-end infinite; }
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .5; transform: scale(1.4); } }
+.pulse-dot { animation: pulse-dot 2s ease infinite; }
+
+/* ── Reveal on scroll ──────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── Loading bar ───────────────────────────────────────────────────────────── */
+.loading-bar-inner {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  width: 0%;
+  transition: width .06s linear;
+  box-shadow: 0 0 8px rgba(137,170,204,0.35);
+}
+
+/* ── Marquee ───────────────────────────────────────────────────────────────── */
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+
+/* ── Testi scroll ──────────────────────────────────────────────────────────── */
+@keyframes scroll-testi { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.testi-row { display: flex; gap: 1.5rem; width: max-content; animation: scroll-testi 30s linear infinite; }
+.testi-row:hover { animation-play-state: paused; }
+
+/* ── Skill bar ─────────────────────────────────────────────────────────────── */
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  border-radius: 2px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s ease;
+}
+.skill-bar.animated { transform: scaleX(1); }
+
+/* ── Form inputs ───────────────────────────────────────────────────────────── */
+.form-input {
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--stroke));
+  border-radius: 12px;
+  color: hsl(var(--text));
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus { border-color: rgba(137,170,204,0.5); }
+.form-input::placeholder { color: hsl(var(--muted)); }
+.form-input option { background: hsl(var(--bg)); }
+textarea.form-input { min-height: 120px; resize: vertical; }
