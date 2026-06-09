@@ -33,3 +33,4 @@ npm run dev
 13. **Footer** — Flipped HLS video, GSAP marquee, social links, availability dot
 "# talhaavaan-" 
 "# talhaavaan1" 
+"# talhaavaan1" 
